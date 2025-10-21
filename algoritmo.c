@@ -24,7 +24,8 @@ bool es_vecino(int index_u, int index_v, int matriz_adyacencia[][MAX_VERTICES]) 
 void algoritmo(int n, bool *visto, int *distancia, int matriz_adyacencia[][MAX_VERTICES]) {
     while (true) {
         int u = minima_distancia(n, visto, distancia);
-        if (u == -1) break;
+        if (u == -1)
+            break;
 
         visto[u] = true;
 

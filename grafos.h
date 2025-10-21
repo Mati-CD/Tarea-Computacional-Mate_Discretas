@@ -20,7 +20,7 @@ int minima_distancia(int n, bool *visto, int *distancia);
 bool es_vecino(int index_u, int index_v, int matriz_adyacencia[][MAX_VERTICES]);
 void algoritmo(int n, bool *visto, int *distancia, int matriz_adyacencia[][MAX_VERTICES]);
 
-void get_tipo_grafo(
+void set_tipo_grafo(
     int tipo,
     char **vertice_arr,
     int *n_vertices,
