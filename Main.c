@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <limits.h>
-
-#define MAX_VERTICES 20
-#define MAX_LONGITUD_NOMBRE 10
+#include "grafos.h"
 
 //Funcion para encontrar el índice de un vertice por nombre
 int encontrar_indice_vertice(char vertices[][MAX_LONGITUD_NOMBRE], int num_vertices, char *nombre) {
@@ -55,23 +49,22 @@ void crear_arbol_no_dirigido(char vertices[][MAX_LONGITUD_NOMBRE], int *num_vert
     inicializar_adyacencia(adyacencia);
     
     // Agregar vértices
-    char *nombres_vertices[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"};
-    for (int i = 0; i < 11; i++) {
+    char *nombres_vertices[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+    for (int i = 0; i < 12; i++) {
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
-    
+
+    char *aristas[][2] = {
+        {"a", "b"}, {"a", "c"}, {"b", "d"}, {"d", "h"}, {"d", "i"},
+        {"c", "e"}, {"c", "f"}, {"c", "g"}, {"g", "l"}, {"f", "j"}, 
+        {"f", "k"}
+    };
+    int num_aristas = sizeof(aristas) / sizeof(aristas[0]);
+
     //Agregar aristas
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "g", "l");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "k");
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 0, aristas[i][0], aristas[i][1]);
+    }
 }
 
 //Crear arbol con orientacion 1
@@ -83,19 +76,17 @@ void crear_arbol_orientacion1(char vertices[][MAX_LONGITUD_NOMBRE], int *num_ver
     for (int i = 0; i < 11; i++) {
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
-    
-    //Orientación arbitraria
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "a", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "b", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "d", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "i", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "c", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "l", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "k", "f");
+
+    char *aristas_orientadas[][2] = {
+        {"a", "b"}, {"a", "c"}, {"b", "d"}, {"d", "h"}, {"i", "d"},
+        {"c", "e"}, {"f", "c"}, {"e", "g"}, {"l", "g"}, {"f", "j"}, 
+        {"k", "f"}
+    };
+    int num_aristas = sizeof(aristas_orientadas) / sizeof(aristas_orientadas[0]);
+
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 1, aristas_orientadas[i][0], aristas_orientadas[i][1]);
+    }
 }
 
 //Crear grafo planar no dirigido
@@ -108,20 +99,16 @@ void crear_planar_no_dirigido(char vertices[][MAX_LONGITUD_NOMBRE], int *num_ver
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
     
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "g", "h");
+    char *aristas[][2] = {
+        {"a", "b"}, {"a", "h"}, {"b", "h"}, {"b", "d"}, {"b", "c"},
+        {"c", "d"}, {"d", "i"}, {"d", "f"}, {"d", "e"}, {"e", "f"}, 
+        {"f", "i"}, {"f", "h"}, {"f", "g"}, {"g", "h"}
+    };
+    int num_aristas = sizeof(aristas) / sizeof(aristas[0]);
+    
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 0, aristas[i][0], aristas[i][1]);
+    }
 }
 
 //Crear grafo planar con orientacion 1
@@ -133,21 +120,19 @@ void crear_planar_orientacion1(char vertices[][MAX_LONGITUD_NOMBRE], int *num_ve
     for (int i = 0; i < 9; i++) {
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
-    
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "a");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "b", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "b", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "c", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "c", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "d", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "d", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "g", "h");
+
+    // DEFINICIÓN DE ARISTAS (Arreglo 2D con orientación Origen -> Destino)
+    char *aristas_orientadas[][2] = {
+        {"a", "b"}, {"h", "a"}, {"b", "h"}, {"b", "d"}, {"c", "b"},
+        {"c", "d"}, {"d", "i"}, {"d", "f"}, {"e", "d"}, {"e", "f"},
+        {"f", "i"}, {"h", "f"}, {"f", "g"}, {"g", "h"}
+    };
+    int num_aristas = sizeof(aristas_orientadas) / sizeof(aristas_orientadas[0]);
+
+    // Agregar aristas mediante un bucle
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 1, aristas_orientadas[i][0], aristas_orientadas[i][1]);
+    }
 }
 
 //Crear grafo Euleriano no dirigido
@@ -159,30 +144,20 @@ void crear_euleriano_no_dirigido(char vertices[][MAX_LONGITUD_NOMBRE], int *num_
     for (int i = 0; i < 10; i++) {
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
-    
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "a", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "b", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "c", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "d", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "e", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "f", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "g", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "g", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "h", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "h", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 0, "i", "j");
+
+    char *aristas[][2] = {
+        {"a", "b"}, {"a", "h"}, {"b", "c"}, {"b", "j"}, {"b", "h"},
+        {"c", "j"}, {"c", "d"}, {"c", "e"}, {"d", "f"}, {"d", "i"},
+        {"d", "e"}, {"e", "j"}, {"e", "i"}, {"e", "f"}, {"e", "g"},
+        {"f", "i"}, {"f", "h"}, {"f", "g"}, {"g", "i"}, {"g", "h"},
+        {"h", "i"}, {"h", "j"}, {"i", "j"}
+    };
+    int num_aristas = sizeof(aristas) / sizeof(aristas[0]);
+
+    // Agregar aristas mediante un bucle
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 0, aristas[i][0], aristas[i][1]);
+    }
 }
 
 //Crear grafo Euleriano con orientacion 1
@@ -194,32 +169,85 @@ void crear_euleriano_orientacion1(char vertices[][MAX_LONGITUD_NOMBRE], int *num
     for (int i = 0; i < 10; i++) {
         agregar_vertice(vertices, num_vertices, nombres_vertices[i]);
     }
-    
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "a", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "a");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "b", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "b", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "b");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "c", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "c", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "c");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "d", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "i", "d");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "d", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "j");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "i", "e");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "e", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "f");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "f", "g");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "g", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "g", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "h", "i");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "j", "h");
-    agregar_arista(adyacencia, vertices, *num_vertices, 1, "i", "j");
+
+    char *aristas_orientadas[][2] = {
+        {"a", "b"}, {"h", "a"}, {"b", "c"}, {"b", "j"}, {"h", "b"},
+        {"c", "j"}, {"c", "d"}, {"e", "c"}, {"d", "f"}, {"i", "d"},
+        {"d", "e"}, {"e", "j"}, {"i", "e"}, {"e", "f"}, {"e", "g"},
+        {"f", "i"}, {"h", "f"}, {"f", "g"}, {"g", "i"}, {"g", "h"},
+        {"h", "i"}, {"j", "h"}, {"i", "j"}
+    };
+
+    int num_aristas = sizeof(aristas_orientadas) / sizeof(aristas_orientadas[0]);
+
+    for (int i = 0; i < num_aristas; i++) {
+        agregar_arista(adyacencia, vertices, *num_vertices, 1, aristas_orientadas[i][0], aristas_orientadas[i][1]);
+    }
 }
 
-int main(){
+void imprimir_grafo(int num_vertices, char vertices[][MAX_LONGITUD_NOMBRE], int matriz_adyacencia[][MAX_VERTICES]) {
+    printf("\nArbol creado. Los vertices son: %d\n", num_vertices);
+
+    printf("     ");
+    for (int j = 0; j < num_vertices; j++) {
+        printf("%s  ", vertices[j]);
+    }
+    printf("\n");
     
+    // Imprimir matriz de adyacencia
+    for (int i = 0; i < num_vertices; i++) {
+        printf("%s |  ", vertices[i]);
+        for (int j = 0; j < num_vertices; j++) {
+            printf("%d  ", matriz_adyacencia[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
+/*
+int main() {
+
+}
+*/
+
+void inicializar_dijkstra(int n, int *distancia, bool *visto, int index_inicial) {
+    for (int i = 0; i < n; i++) {
+        distancia[i] = INT_MAX; 
+        visto[i] = false;
+    }
+    
+    if (index_inicial >= 0 && index_inicial < n) {
+        distancia[index_inicial] = 0;
+    }
+}
+
+
+int main(){
+    char vertices[MAX_VERTICES][MAX_LONGITUD_NOMBRE];
+    int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
+    int num_vertices;
+
+    crear_arbol_no_dirigido(vertices, &num_vertices, matriz_adyacencia);
+
+    imprimir_grafo(num_vertices, vertices, matriz_adyacencia);
+
+    int *distancia;
+    bool *visto;
+    distancia = (int *)malloc(num_vertices * sizeof(int));
+    visto = (bool *)malloc(num_vertices * sizeof(bool));
+
+    int s = 3;
+
+    inicializar_dijkstra(num_vertices, distancia, visto, s);
+    algoritmo(num_vertices, visto, distancia, matriz_adyacencia);
+
+    for (int i = 0; i < num_vertices; i++) {
+        printf("%s: %d\n", vertices[i], distancia[i]);
+    }
+
+    free(distancia);
+    free(visto);
+
+    return 0;
 }
