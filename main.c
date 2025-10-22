@@ -57,36 +57,42 @@ void imprimir_grafo(char *V, int n_vertices, FilaMatriz *M_adyacencia) {
     printf("\n");
 }
 
-
 void ejecutar_programa(
     char *file_name,
-    char *V, int *n_vertices,
-    Arista *E, int *n_aristas,
+    char *V, int *n_vertices, Arista *E, int *n_aristas,
     FilaMatriz *M_adyacencia, int dirigido,
-    int v_inicial, int v_final
+    char *v_inicial_c, char *v_final_c
 ) {
 
     leer_archivo_grafo(file_name, V, n_vertices, E, n_aristas);
     crear_matriz_adyacencia(V, *n_vertices, E, *n_aristas, M_adyacencia, dirigido);
+
+    int v_inicial = get_indice_vertice(*v_inicial_c, *n_vertices, V);
+    int v_final = get_indice_vertice(*v_final_c, *n_vertices, V);
+
     imprimir_grafo(V, *n_vertices, M_adyacencia);
     dijkstra(V, *n_vertices, v_inicial, v_final, M_adyacencia);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
     char V[MAX_VERTICES];
     Arista E[MAX_ARISTAS];
     int n_vertices_G = 0;
     int n_aristas_G = 0;
     int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
     int dirigido = 0;
-    int v_inicial = 0;
-    int v_final = 4;
+
+    if (argc < 4) return 1;
+
+    // Nombre del grafo
+    char file_name[MAX_LENGTH];
+    snprintf(file_name, MAX_LENGTH, "grafos/%s.txt", argv[3]);
 
     ejecutar_programa(
-        "grafos/euleriano.txt",
+        file_name,
         V, &n_vertices_G, E, &n_aristas_G,
         matriz_adyacencia, dirigido,
-        v_inicial, v_final
+        argv[1], argv[2]
     );
 
     return 0;

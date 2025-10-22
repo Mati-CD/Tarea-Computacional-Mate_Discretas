@@ -4,7 +4,7 @@ void leer_archivo_grafo(char *file_name, char *V, int *n_vertices, Arista *E, in
     FILE *file = fopen(file_name, "r");
     if (!file) {
         perror("Error al abrir el archivo");
-        return;
+        exit(1);
     }
 
     char line[256];

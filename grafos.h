@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <stdbool.h>
 
+#define MAX_LENGTH 256
 #define MAX_VERTICES 20
 #define MAX_ARISTAS 50
 #define INF INT_MAX
