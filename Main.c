@@ -8,21 +8,18 @@ int get_indice_vertice(char v, int n_vertices, char *vertices_arr) {
 }
 
 //Inicializar matriz de adyacencia
-void inicializar_adyacencia(int adyacencia[][MAX_VERTICES]) {
+void inicializar_matriz_adyacencia(FilaMatriz *m_adyacencia) {
     for (int i = 0; i < MAX_VERTICES; i++) {
         for (int j = 0; j < MAX_VERTICES; j++) {
-            adyacencia[i][j] = 0;
+            m_adyacencia[i][j] = 0;
         }
     }
 }
 
 void crear_matriz_adyacencia(
-    int n_vertices,
-    int n_aristas,
-    char *vertices_arr,
-    Arista *aristas_arr,
-    int m_adyacencia[][MAX_VERTICES],
-    int dirigido
+    char *vertices_arr, int n_vertices,
+    Arista *aristas_arr, int n_aristas,
+    FilaMatriz *m_adyacencia, int dirigido
 ) {
 
     for (int i = 0; i < n_aristas; i++) {
@@ -44,25 +41,19 @@ void crear_matriz_adyacencia(
 void crear_grafo(
     char *vertices_G, int n_vertices_G,
     Arista *aristas_G, int n_aristas_G,
-    char *vertices_arr, int *n_vertices,
-    int m_adyacencia[][MAX_VERTICES]
+    FilaMatriz *m_adyacencia
 ) {
-    inicializar_adyacencia(m_adyacencia);
-
-    *n_vertices = n_vertices_G;
-    memcpy(vertices_arr, vertices_G, n_vertices_G * sizeof(char));
+    
+    inicializar_matriz_adyacencia(m_adyacencia);
 
     crear_matriz_adyacencia(
-        n_vertices_G,
-        n_aristas_G,
-        vertices_G,
-        aristas_G,
-        m_adyacencia,
-        0
+        vertices_G, n_vertices_G,
+        aristas_G, n_aristas_G,
+        m_adyacencia, 0
     );
 }
 
-void imprimir_grafo(int n_vertices, char *vertices_arr, int matriz_adyacencia[][MAX_VERTICES]) {
+void imprimir_grafo(int n_vertices, char *vertices_arr, FilaMatriz *m_adyacencia) {
     printf("\nGrafo creado. Los vertices son: %d\n", n_vertices);
 
     printf("     ");
@@ -75,7 +66,7 @@ void imprimir_grafo(int n_vertices, char *vertices_arr, int matriz_adyacencia[][
     for (int i = 0; i < n_vertices; i++) {
         printf("%c |  ", vertices_arr[i]);
         for (int j = 0; j < n_vertices; j++) {
-            printf("%d  ", matriz_adyacencia[i][j]);
+            printf("%d  ", m_adyacencia[i][j]);
         }
         printf("\n");
     }
@@ -87,43 +78,77 @@ void inicializar_dijkstra(int n, int *distancia, bool *visto, int index_inicial)
         distancia[i] = INT_MAX; 
         visto[i] = false;
     }
-    
-    if (index_inicial >= 0 && index_inicial < n) {
-        distancia[index_inicial] = 0;
-    }
+    distancia[index_inicial] = 0;
 }
 
 
-int main(){
-    char vertices[MAX_VERTICES];
+
+int main() {
+    char V[MAX_VERTICES];
+    Arista E[MAX_ARISTAS];
+    int n_vertices_G = 0;
+    int n_aristas_G = 0;
+
+    leer_grafo("grafos/euleriano.txt", V, &n_vertices_G, E, &n_aristas_G);
+
     int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
-    int num_vertices;
 
-    char *vertices_G;
-    Arista *aristas_G;
-    int n_vertices_G;
-    int n_aristas_G;
-
-    set_tipo_grafo(2, &vertices_G, &n_vertices_G, &aristas_G, &n_aristas_G);
     crear_grafo(
-        vertices_G, n_vertices_G,
-        aristas_G, n_aristas_G,
-        vertices, &num_vertices,
+        V, n_vertices_G,
+        E, n_aristas_G,
         matriz_adyacencia
     );
 
-    imprimir_grafo(num_vertices, vertices, matriz_adyacencia);
+    imprimir_grafo(n_vertices_G, V, matriz_adyacencia);
+
+    int distancia[MAX_VERTICES];
+    bool visto[MAX_VERTICES];
+    int s_index = 3;
+
+    inicializar_dijkstra(n_vertices_G, distancia, visto, s_index);
+    algoritmo(n_vertices_G, visto, distancia, matriz_adyacencia);
+
+    for (int i = 0; i < n_vertices_G; i++) {
+        printf("%c: %d\n", V[i], distancia[i]);
+    }
+
+    return 0;
+}
+
+
+/*
+int main(){
+    char vertices_G[MAX_VERTICES];
+    Arista aristas_G[MAX_ARISTAS];
+    int n_vertices_G = 0;
+    int n_aristas_G = 0;
+    int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
+
+    leer_archivo(
+        "arbol.txt",
+        vertices_G, &n_vertices_G,
+        aristas_G, &n_aristas_G
+    );
+
+    crear_grafo(
+        vertices_G, n_vertices_G,
+        aristas_G, n_aristas_G,
+        matriz_adyacencia
+    );
+
+    imprimir_grafo(n_vertices_G, vertices_G, matriz_adyacencia);
 
     int distancia[MAX_VERTICES];
     bool visto[MAX_VERTICES];
 
     int s_index = 3;
 
-    inicializar_dijkstra(num_vertices, distancia, visto, s_index);
-    algoritmo(num_vertices, visto, distancia, matriz_adyacencia);
+    inicializar_dijkstra(n_vertices_G, distancia, visto, s_index);
+    algoritmo(n_vertices_G, visto, distancia, matriz_adyacencia);
 
-    for (int i = 0; i < num_vertices; i++) {
-        printf("%c: %d\n", vertices[i], distancia[i]);
+    for (int i = 0; i < n_vertices_G; i++) {
+        printf("%c: %d\n", vertices_G[i], distancia[i]);
     }
     return 0;
 }
+    */

@@ -17,11 +17,11 @@ int minima_distancia(int n, bool *visto, int *distancia) {
     return u;
 }
 
-bool es_vecino(int index_u, int index_v, int matriz_adyacencia[][MAX_VERTICES]) {
-    return matriz_adyacencia[index_u][index_v] == 1;
+bool es_vecino(int index_u, int index_v, FilaMatriz *m_adyacencia) {
+    return m_adyacencia[index_u][index_v] == 1;
 }
 
-void algoritmo(int n, bool *visto, int *distancia, int matriz_adyacencia[][MAX_VERTICES]) {
+void algoritmo(int n, bool *visto, int *distancia, FilaMatriz *m_adyacencia) {
     while (true) {
         int u = minima_distancia(n, visto, distancia);
         if (u == -1)
@@ -30,7 +30,7 @@ void algoritmo(int n, bool *visto, int *distancia, int matriz_adyacencia[][MAX_V
         visto[u] = true;
 
         for (int v = 0; v < n; v++) {
-            if (es_vecino(u, v, matriz_adyacencia)) {
+            if (es_vecino(u, v, m_adyacencia)) {
                 if (distancia[v] > distancia[u] + PESO) {
                     distancia[v] = distancia[u] + PESO;
                 }

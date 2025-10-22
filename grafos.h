@@ -9,16 +9,23 @@
 
 
 #define MAX_VERTICES 20
-#define MAX_LONGITUD_NOMBRE 10
+#define MAX_ARISTAS 50
 
 typedef struct {
     char u;
     char v;
 } Arista;
 
+typedef int FilaMatriz[MAX_VERTICES];
+
+void leer_grafo(char *file_name, char *V, int *n_vertices, Arista *E, int *n_aristas);
+void leer_vertice(char *line, int *n_vertices, char *V);
+void leer_arista(char *line, int *n_aristas, Arista *E);
+
+int get_indice_vertice(char v, int n_vertices, char *vertices_arr);
 int minima_distancia(int n, bool *visto, int *distancia);
-bool es_vecino(int index_u, int index_v, int matriz_adyacencia[][MAX_VERTICES]);
-void algoritmo(int n, bool *visto, int *distancia, int matriz_adyacencia[][MAX_VERTICES]);
+bool es_vecino(int index_u, int index_v, FilaMatriz *m_adyacencia);
+void algoritmo(int n, bool *visto, int *distancia, FilaMatriz *m_adyacencia);
 
 void set_tipo_grafo(
     int tipo,

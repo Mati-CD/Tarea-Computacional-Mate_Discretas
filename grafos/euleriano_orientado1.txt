@@ -1,0 +1,25 @@
+a, b, c, d, e, f, g, h, i, j
+
+a, b
+h, a
+b, c
+b, j
+h, b
+c, j
+c, d
+e, c
+d, f
+i, d
+d, e
+e, j
+i, e
+e, f
+e, g
+f, i
+h, f
+f, g
+g, i
+g, h
+h, i
+j, h
+i, j
