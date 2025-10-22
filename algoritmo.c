@@ -19,7 +19,13 @@ bool es_vecino(int index_u, int index_v, FilaMatriz *m_adyacencia) {
 }
 
 void imprimir_camino(int index_i, int index_f, int *padre, char *V) {
-    // Caso: Vertice inicial
+    // Caso 1: No se puede llegar al vertice final
+    if (padre[index_f] == -1 && index_f != index_i) {
+        printf("ERROR: El vertice '%c' es inalcanzable.\n", V[index_f]);
+        return;
+    }
+
+    // Caso 2: Vertice inicial
     if (index_f == index_i) {
         printf("%c", V[index_i]);
         return;
@@ -60,13 +66,19 @@ void dijkstra(char *V, int n_vertices, int index_i, int index_f, FilaMatriz *m_a
         }
     }
 
-    // Printear distancias
+    /* Printear distancias
     for (int i = 0; i < n_vertices; i++) {
         printf("%c: %d\n", V[i], distancia[i]);
     }
+    */
 
     // Printear camino más corto
-    printf("Camino más corto desde '%c' hasta '%c':\n", V[index_i], V[index_f]);
-    imprimir_camino(index_i, index_f, padre, V);
-    printf("\n");
+    if (distancia[index_f] == INT_MAX) {
+        printf("No es posible ir desde '%c' hasta '%c'.\n", V[index_i], V[index_f]);
+    }
+    else {
+        printf("Camino más corto desde '%c' hasta '%c':\n", V[index_i], V[index_f]);
+        imprimir_camino(index_i, index_f, padre, V);
+        printf("\n");
+    }
 }

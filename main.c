@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Determinar si es orientado
-    if (strstr(argv[3], "orientado") != NULL) {
+    if (strstr(argv[3], "_o") != NULL) {
         dirigido = true;
     }
 

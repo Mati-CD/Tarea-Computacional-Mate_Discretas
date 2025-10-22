@@ -1,5 +1,25 @@
 #include "grafos.h"
 
+void imprimir_grafo(char *V, int n_vertices, FilaMatriz *M_adyacencia) {
+    printf("\nGrafo creado. Los vertices son: %d\n", n_vertices);
+
+    printf("     ");
+    for (int j = 0; j < n_vertices; j++) {
+        printf("%c  ", V[j]);
+    }
+    printf("\n");
+    
+    // Imprimir matriz de adyacencia
+    for (int i = 0; i < n_vertices; i++) {
+        printf("%c |  ", V[i]);
+        for (int j = 0; j < n_vertices; j++) {
+            printf("%d  ", M_adyacencia[i][j]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+
 int get_indice_vertice(char v, int n_vertices, char *V) {
     for (int i = 0; i < n_vertices; i++) {
         if (V[i] == v) return i;
@@ -36,26 +56,6 @@ void crear_matriz_adyacencia(
     }
 }
 
-void imprimir_grafo(char *V, int n_vertices, FilaMatriz *M_adyacencia) {
-    printf("\nGrafo creado. Los vertices son: %d\n", n_vertices);
-
-    printf("     ");
-    for (int j = 0; j < n_vertices; j++) {
-        printf("%c  ", V[j]);
-    }
-    printf("\n");
-    
-    // Imprimir matriz de adyacencia
-    for (int i = 0; i < n_vertices; i++) {
-        printf("%c |  ", V[i]);
-        for (int j = 0; j < n_vertices; j++) {
-            printf("%d  ", M_adyacencia[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-}
-
 void ejecutar_programa(
     char *file_name,
     char *V, int *n_vertices, Arista *E, int *n_aristas,
@@ -69,6 +69,6 @@ void ejecutar_programa(
     int v_inicial = get_indice_vertice(*v_inicial_c, *n_vertices, V);
     int v_final = get_indice_vertice(*v_final_c, *n_vertices, V);
 
-    imprimir_grafo(V, *n_vertices, M_adyacencia);
+    //imprimir_grafo(V, *n_vertices, M_adyacencia);
     dijkstra(V, *n_vertices, v_inicial, v_final, M_adyacencia);
 }
