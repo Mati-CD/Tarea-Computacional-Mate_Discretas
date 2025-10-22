@@ -6,9 +6,17 @@ int main(int argc, char *argv[]) {
     int n_vertices_G = 0;
     int n_aristas_G = 0;
     int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
-    int dirigido = 0;
+    bool dirigido = false;
 
-    if (argc < 4) return 1;
+    if (argc < 4) {
+        printf("Uso: ./path <v_inicial> <v_final> <nombre_grafo>\n");
+        return 1;
+    }
+
+    // Determinar si es orientado
+    if (strstr(argv[3], "orientado") != NULL) {
+        dirigido = true;
+    }
 
     // Nombre del grafo
     char file_name[MAX_LENGTH];

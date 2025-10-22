@@ -8,8 +8,8 @@ int get_indice_vertice(char v, int n_vertices, char *V) {
 }
 
 void crear_matriz_adyacencia(
-    char *vertices_arr, int n_vertices, Arista *aristas_arr, int n_aristas,
-    FilaMatriz *M_adyacencia, int dirigido
+    char *V, int n_vertices, Arista *E, int n_aristas,
+    FilaMatriz *M_adyacencia, bool dirigido
 ) {
 
     // Inicializar matriz de adyacencia
@@ -21,11 +21,11 @@ void crear_matriz_adyacencia(
 
     // Mapear aristas a la matriz
     for (int i = 0; i < n_aristas; i++) {
-        char v1 = aristas_arr[i].u;
-        char v2 = aristas_arr[i].v;
+        char v1 = E[i].u;
+        char v2 = E[i].v;
         
-        int v_index1 = get_indice_vertice(v1, n_vertices, vertices_arr);
-        int v_index2 = get_indice_vertice(v2, n_vertices, vertices_arr);
+        int v_index1 = get_indice_vertice(v1, n_vertices, V);
+        int v_index2 = get_indice_vertice(v2, n_vertices, V);
         
         if (v_index1 != -1 && v_index2 != -1) {
             M_adyacencia[v_index1][v_index2] = 1;
@@ -59,7 +59,7 @@ void imprimir_grafo(char *V, int n_vertices, FilaMatriz *M_adyacencia) {
 void ejecutar_programa(
     char *file_name,
     char *V, int *n_vertices, Arista *E, int *n_aristas,
-    FilaMatriz *M_adyacencia, int dirigido,
+    FilaMatriz *M_adyacencia, bool dirigido,
     char *v_inicial_c, char *v_final_c
 ) {
 

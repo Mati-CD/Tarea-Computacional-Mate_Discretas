@@ -7,10 +7,10 @@ void leer_archivo_grafo(char *file_name, char *V, int *n_vertices, Arista *E, in
         exit(1);
     }
 
-    char line[256];
+    char line[MAX_LENGTH];
     int vertice_line = 1;
 
-    while (fgets(line, 256, file) != NULL) {
+    while (fgets(line, MAX_LENGTH, file) != NULL) {
         if (strspn(line, " \t\n\r") == strlen(line)) continue;
 
         if (vertice_line) {

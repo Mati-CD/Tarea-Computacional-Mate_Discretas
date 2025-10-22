@@ -34,14 +34,14 @@ void dijkstra(char *V, int n_vertices, int index_i, int index_f, FilaMatriz *m_a
 // utils.c
 int get_indice_vertice(char v, int n_vertices, char *V);
 void crear_matriz_adyacencia(
-    char *vertices_arr, int n_vertices, Arista *aristas_arr, int n_aristas,
-    FilaMatriz *M_adyacencia, int dirigido
+    char *V, int n_vertices, Arista *E, int n_aristas,
+    FilaMatriz *M_adyacencia, bool dirigido
 );
 void imprimir_grafo(char *V, int n_vertices, FilaMatriz *M_adyacencia);
 void ejecutar_programa(
     char *file_name,
     char *V, int *n_vertices, Arista *E, int *n_aristas,
-    FilaMatriz *M_adyacencia, int dirigido,
+    FilaMatriz *M_adyacencia, bool dirigido,
     char *v_inicial_c, char *v_final_c
 );
 
