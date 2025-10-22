@@ -72,3 +72,27 @@ void ejecutar_programa(
     //imprimir_grafo(V, *n_vertices, M_adyacencia);
     dijkstra(V, *n_vertices, v_inicial, v_final, M_adyacencia);
 }
+
+bool leer_args_entrada(int argc, char *argv[], char *file_name, bool *dirigido) {
+    // Verificación de los argumentos de entrada
+    if (argc < 4) {
+        printf("Uso: ./path <v_inicial> <v_final> <nombre_grafo>\n");
+        return false;
+    }
+
+    // Determinar si el formato de vertices es correcto
+    if (strlen(argv[1]) != 1 || strlen(argv[2]) != 1) {
+        printf("Error: Formato de vertices incorrecto (ej: a, h).\n");
+        return false;
+    }
+
+    // Determinar si es orientado
+    if (strstr(argv[3], "_o") != NULL) {
+        *dirigido = true;
+    }
+
+    // Encontrar archivo del grafo ingresado
+    snprintf(file_name, MAX_LENGTH, "grafos/%s.txt", argv[3]);
+
+    return true;
+}

@@ -1,26 +1,17 @@
 #include "grafos.h"
 
 int main(int argc, char *argv[]) {
+    char file_name[MAX_LENGTH];
     char V[MAX_VERTICES];
     Arista E[MAX_ARISTAS];
+    int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
     int n_vertices_G = 0;
     int n_aristas_G = 0;
-    int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
     bool dirigido = false;
 
-    if (argc < 4) {
-        printf("Uso: ./path <v_inicial> <v_final> <nombre_grafo>\n");
+    if (!leer_args_entrada(argc, argv, file_name, &dirigido)) {
         return 1;
     }
-
-    // Determinar si es orientado
-    if (strstr(argv[3], "_o") != NULL) {
-        dirigido = true;
-    }
-
-    // Nombre del grafo
-    char file_name[MAX_LENGTH];
-    snprintf(file_name, MAX_LENGTH, "grafos/%s.txt", argv[3]);
 
     ejecutar_programa(
         file_name,

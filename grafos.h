@@ -44,5 +44,6 @@ void ejecutar_programa(
     FilaMatriz *M_adyacencia, bool dirigido,
     char *v_inicial_c, char *v_final_c
 );
+bool leer_args_entrada(int argc, char *argv[], char *file_name, bool *dirigido);
 
 #endif
