@@ -1,6 +1,6 @@
 #include "grafos.h"
 
-void leer_grafo(char *file_name, char *V, int *n_vertices, Arista *E, int *n_aristas) {
+void leer_archivo_grafo(char *file_name, char *V, int *n_vertices, Arista *E, int *n_aristas) {
     FILE *file = fopen(file_name, "r");
     if (!file) {
         perror("Error al abrir el archivo");
