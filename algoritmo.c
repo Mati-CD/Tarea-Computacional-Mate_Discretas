@@ -1,8 +1,5 @@
 #include "grafos.h"
 
-#define INF INT_MAX
-#define PESO 1
-
 int minima_distancia(int n, bool *visto, int *distancia) {
     int min_distancia = INF;
     int u = -1;

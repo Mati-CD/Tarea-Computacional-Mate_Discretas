@@ -43,7 +43,7 @@ void crear_grafo(
     Arista *aristas_G, int n_aristas_G,
     FilaMatriz *m_adyacencia
 ) {
-    
+
     inicializar_matriz_adyacencia(m_adyacencia);
 
     crear_matriz_adyacencia(
@@ -114,41 +114,3 @@ int main() {
 
     return 0;
 }
-
-
-/*
-int main(){
-    char vertices_G[MAX_VERTICES];
-    Arista aristas_G[MAX_ARISTAS];
-    int n_vertices_G = 0;
-    int n_aristas_G = 0;
-    int matriz_adyacencia[MAX_VERTICES][MAX_VERTICES];
-
-    leer_archivo(
-        "arbol.txt",
-        vertices_G, &n_vertices_G,
-        aristas_G, &n_aristas_G
-    );
-
-    crear_grafo(
-        vertices_G, n_vertices_G,
-        aristas_G, n_aristas_G,
-        matriz_adyacencia
-    );
-
-    imprimir_grafo(n_vertices_G, vertices_G, matriz_adyacencia);
-
-    int distancia[MAX_VERTICES];
-    bool visto[MAX_VERTICES];
-
-    int s_index = 3;
-
-    inicializar_dijkstra(n_vertices_G, distancia, visto, s_index);
-    algoritmo(n_vertices_G, visto, distancia, matriz_adyacencia);
-
-    for (int i = 0; i < n_vertices_G; i++) {
-        printf("%c: %d\n", vertices_G[i], distancia[i]);
-    }
-    return 0;
-}
-    */
