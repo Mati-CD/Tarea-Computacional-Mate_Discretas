@@ -1,14 +1,13 @@
 a, b, c, d, e, f, g, h, i, j, k, l
 
-b, a
+a, b
 a, c
-b, d
-d, h
-i, d
+d, b
+h, d
+d, i
 c, e
-f, c
-g, c
+c, f
+c, g
 l, g
 f, j
-f, k
-
+k, f

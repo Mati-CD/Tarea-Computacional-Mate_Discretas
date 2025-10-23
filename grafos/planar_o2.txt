@@ -2,15 +2,15 @@ a, b, c, d, e, f, g, h, i
 
 b, a
 a, h
-h, b
+b, h
 d, b
-b, c
+c, b
 c, d
-d, i
-d, f
+i, d
+f, d
 d, e
-f, e
+e, f
 i, f
-h, f
-f, g
+f, h
+g, f
 h, g

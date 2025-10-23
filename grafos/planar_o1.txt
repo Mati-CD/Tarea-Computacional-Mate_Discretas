@@ -2,14 +2,14 @@ a, b, c, d, e, f, g, h, i
 
 a, b
 h, a
-b, h
+h, b
 b, d
 c, b
-c, d
+d, c
 d, i
 d, f
 e, d
-e, f
+f, e
 f, i
 h, f
 f, g

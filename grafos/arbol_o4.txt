@@ -2,13 +2,12 @@ a, b, c, d, e, f, g, h, i, j, k, l
 
 b, a
 c, a
-d, b
+b, d
 h, d
-d, i
+i, d
 e, c
 c, f
-g, c
+c, g
 l, g
 j, f
 f, k
-

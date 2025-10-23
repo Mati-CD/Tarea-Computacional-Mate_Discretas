@@ -3,12 +3,11 @@ a, b, c, d, e, f, g, h, i, j, k, l
 b, a
 c, a
 d, b
-d, h
+h, d
 i, d
 e, c
-c, f
+f, c
 g, c
-l, g
-f, j
-f, k
-
+g, l
+j, f
+k, f
