@@ -1,0 +1,16 @@
+a, b, c, d, e, f, g, h, i
+
+b, a
+a, h
+h, b
+d, b
+b, c
+c, d
+d, i
+d, f
+d, e
+f, e
+i, f
+h, f
+f, g
+h, g
