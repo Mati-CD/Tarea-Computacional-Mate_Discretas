@@ -1,1 +1,4 @@
-# Tarea-Computacional-Mate_Discretas
+# Matías Cuello Diban, 
+# Benjamín Saavedra Uribe, 
+# Benjamín Silva Sepúlveda, 
+# Marco Liguempi Bozzano.
