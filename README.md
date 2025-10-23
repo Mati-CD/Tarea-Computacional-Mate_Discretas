@@ -1,3 +1,4 @@
+## Integrantes
 - Matías Cuello Diban 
 - Benjamín Saavedra Uribe
 - Benjamín Silva Sepúlveda
@@ -24,12 +25,13 @@ make
 
 ### 3. Ejecución y ejemplos de uso
 
-## Grafo no orientado
+* **Grafo no orientado**
 
 ```bash
 ./path a h arbol
 ```
-## Grafo orientado (o1, o2, o3 y o4)
+
+* **Grafo orientado (o1, o2, o3 y o4)**
 
 ```bash
 ./path a h arbol_o1.txt
