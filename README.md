@@ -34,5 +34,5 @@ make
 * **Grafo orientado (o1, o2, o3 y o4)**
 
 ```bash
-./path a h arbol_o1.txt
+./path a h arbol_o1
 ```
